@@ -28,7 +28,7 @@ export default function CTASection() {
             </p>
           </div>
 
-<div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+  <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             {/* زر Get Started Now */}
             <button 
               style={{

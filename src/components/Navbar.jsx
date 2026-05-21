@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import sharafLogo from  '../assets/sharafai-logo.jpg'
+import { useNavigate } from 'react-router-dom'
+
+
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleResize = () => {
@@ -39,6 +43,7 @@ export default function Navbar() {
 
 {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <Link to="/" style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
           <img 
             src={sharafLogo} 
             alt="SharafAI Logo" 
@@ -48,33 +53,46 @@ export default function Navbar() {
               objectFit: 'cover'
             }} 
           />
-
+           </Link>
         </div>
 
         {/* Desktop Links */}
-        <div style={{ display: 'flex', gap: '32px' }} className="desktop-nav">
-{['Dashboard', 'Pathways', 'Resources', 'Mentorship'].map(item => (
-  <a key={item} href="#" style={{
-    fontSize: '14px', color: '#374151',
-    textDecoration: 'none', fontWeight: 600,
-    cursor: 'pointer'
-  }}
-    onMouseEnter={e => {
-      e.target.style.background = 'linear-gradient(135deg, #e11d74, #7c3aed)';
-      e.target.style.WebkitBackgroundClip = 'text';
-      e.target.style.WebkitTextFillColor = 'transparent';
-      e.target.style.transform = 'scale(1.1)';
-    }}
-    onMouseLeave={e => {
-      e.target.style.background = 'none';
-      e.target.style.WebkitBackgroundClip = 'initial';
-      e.target.style.WebkitTextFillColor = 'initial';
-      e.target.style.color = '#374151';
-      e.target.style.transform = 'scale(1)';
-    }}
-  >{item}</a>
-))}
-        </div>
+<div style={{ display: 'flex', gap: '32px' }} className="desktop-nav">
+  {[ 
+    { label: 'Dashboard', path: '/' },
+    { label: 'Pathways', path: '/pathways' },
+    { label: 'Resources', path: '/' },
+    { label: 'Mentorship', path: '/' },
+  ].map(item => (
+    /* 🛠️ التعديل هنا: تحويل الـ <a> إلى <Link> واستخدام خاصية "to" */
+    <Link 
+      key={item.label} 
+      to={item.path} 
+      style={{
+        fontSize: '14px', color: '#374151',
+        textDecoration: 'none', fontWeight: 600,
+        cursor: 'pointer',
+        display: 'inline-block',
+        transition: 'all 0.2s ease', // إضافة نعومة للحركة عند الـ Hover
+      }}
+      onMouseEnter={e => {
+        e.target.style.background = 'linear-gradient(135deg, #e11d74, #7c3aed)';
+        e.target.style.WebkitBackgroundClip = 'text';
+        e.target.style.WebkitTextFillColor = 'transparent';
+        e.target.style.transform = 'scale(1.1)';
+      }}
+      onMouseLeave={e => {
+        e.target.style.background = 'none';
+        e.target.style.WebkitBackgroundClip = 'initial';
+        e.target.style.WebkitTextFillColor = 'initial';
+        e.target.style.color = '#374151';
+        e.target.style.transform = 'scale(1)';
+      }}
+    >
+      {item.label}
+    </Link>
+  ))}
+</div>
 
         {/* Icons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
@@ -115,10 +133,11 @@ export default function Navbar() {
       </div>
 
 {/* Mobile Menu */}
+{/* Mobile Menu */}
 {menuOpen && (
   <div style={{
     position: 'fixed',
-    top: '80px',
+    top: '60px', // تعديل بسيط ليطابق الـ height تبع الـ navbar الأصلي (60px) كرمال ما يصير فراغ
     left: 0,
     right: 0,
     background: 'rgba(255, 255, 255, 0.95)',
@@ -131,15 +150,24 @@ export default function Navbar() {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '28px',
-    borderRadius: '100px 0px 0px 100px',
+    borderRadius: '0px 0px 20px 20px', // تدوير الحواف السفلية يعطي طابع متناسق أكثر مع واجهة الجوال
     zIndex: 1000,
-    animation: 'fadeSlideDown 0.8s ease forwards',
+    animation: 'fadeSlideDown 0.4s ease forwards', // تسريع الأنيميشن قليلاً كرمال استجابة الموبايل تكون طيارة
   }} className="mobile-menu">
     
-    {['Dashboard', 'Pathways', 'Resources', 'Mentorship'].map(item => (
-      <a 
-        key={item} 
-        href="#" 
+    {/* 🛠️ قمنا بتغيير المصفوفة لتشمل الاسم والمسار (path) معاً مثل الـ Desktop */}
+    {[
+      { label: 'Dashboard', path: '/' },
+      { label: 'Pathways', path: '/pathways' },
+      { label: 'Resources', path: '/' },
+      { label: 'Mentorship', path: '/' },
+    ].map(item => (
+      /* 🛠️ تحويل الـ <a> إلى <Link> واستخدام خاصية to */
+      <Link 
+        key={item.label} 
+        to={item.path} 
+        // 🛠️ الخدعة هنا: بمجرد ما يضغط المستخدم على الرابط، نغلق المنيو تلقائياً لتظهر الصفحة الجديدة خلفها
+        onClick={() => setMenuOpen(false)}
         style={{
           fontSize: '15.5px',
           color: '#1f2937',
@@ -148,6 +176,7 @@ export default function Navbar() {
           letterSpacing: '-0.02em',
           padding: '8px 0',
           position: 'relative',
+          display: 'inline-block',
           transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
         onMouseEnter={e => {
@@ -165,8 +194,8 @@ export default function Navbar() {
           e.target.style.transform = 'translateY(0)';
         }}
       >
-        {item}
-      </a>
+        {item.label}
+      </Link>
     ))}
   </div>
 )}

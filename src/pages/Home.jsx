@@ -1,4 +1,3 @@
-import Navbar from '../components/Navbar'
 import HeroSection from '../components/HeroSection'
 import RoleCards from '../components/RoleCards'
 import CTASection from '../components/CTASection'
@@ -10,7 +9,6 @@ export default function Home() {
       background: 'linear-gradient(160deg, #fff0f6 0%, #fdf4ff 40%, #f8faff 100%)',
       fontFamily: 'Inter, -apple-system, sans-serif',
     }}>
-      <Navbar />
       <HeroSection />
       <RoleCards />
       <CTASection />

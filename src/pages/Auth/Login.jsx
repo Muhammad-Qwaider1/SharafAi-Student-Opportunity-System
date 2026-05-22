@@ -1,15 +1,33 @@
 import { useState } from 'react'
+import { useNavigate, Link } from 'react-router-dom'// 👈 1. استيراد الـ useNavigate للتوجيه
 import sharafLogo from  '../../assets/sharafai-logo.jpg'
 
 export default function Login() {
+  const navigate = useNavigate() // 👈 2. تفعيل هوك التوجيه
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [keepSignedIn, setKeepSignedIn] = useState(false)
+  const [error, setError] = useState('') // 👈 3. حالة لحفظ رسالة الخطأ إذا كانت البيانات غلط
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // TODO: اربط مع authApi.js
-    console.log({ email, password, keepSignedIn })
+    
+    // 🔐 4. تحديد بيانات الدخول الوهمية الخاصة بالمطورين
+    const mockEmail = 'admin@sharaf.ai'
+    const mockPassword = '123456'
+
+    if (email === mockEmail && password === mockPassword) {
+      setError('') // تصفير الخطأ عند النجاح
+      
+      // تخزين توكن وهمي بالمتصفح (اختياري، يفيدك لاحقاً بالـ Auth)
+      localStorage.setItem('userToken', 'mock-jwt-token-12345')
+      
+      // التوجيه الفوري إلى قلب المشروع (الـ Dashboard) 🚀
+      navigate('/dashboard')
+    } else {
+      // إظهار رسالة خطأ واضحة في حال إدخال بيانات أخرى
+      setError('البريد الإلكتروني أو كلمة المرور غير صحيحة! استخدم حساب المطور التجريبي.')
+    }
   }
 
   return (
@@ -57,9 +75,16 @@ export default function Login() {
         >
           Welcome Back
         </h1>
-        <p style={{ fontSize: '14px', color: '#8b8fa8', marginBottom: '32px', textAlign: 'center' }}>
+        <p style={{ fontSize: '14px', color: '#8b8fa8', marginBottom: '24px', textAlign: 'center' }}>
           Sign in to access your SharafAI dashboard.
         </p>
+
+        {/* ⚠️ 6. عرض رسالة الخطأ للمستخدم في حال أدخل بيانات خاطئة */}
+        {error && (
+          <div style={{ color: '#ef4444da', fontSize: '14px', marginBottom: '16px', fontWeight: 600, textAlign: 'center' }}>
+            {error}
+          </div>
+        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '18px' }}>
@@ -97,16 +122,16 @@ export default function Login() {
                   outline: 'none',
                   fontSize: '14px',
                   color: '#1f2937',
+                  cursor: 'pointer',
                   background: 'transparent',
                 }}
-onFocus={(e) => {
+                onFocus={(e) => {
                   const parent = e.currentTarget.parentElement;
                   parent.style.borderColor = 'transparent';
                   parent.style.backgroundImage = 'linear-gradient(#fff, #fff), linear-gradient(90deg, #e11d74 0%, #7c3aed 100%)';
                   parent.style.backgroundOrigin = 'border-box';
                   parent.style.backgroundClip = 'padding-box, border-box';
                 }}
-                // عند الخروج نرجع كل شيء لأصله الطبيعي والناعم
                 onBlur={(e) => {
                   const parent = e.currentTarget.parentElement;
                   parent.style.borderColor = '#e5e7eb';
@@ -136,6 +161,7 @@ onFocus={(e) => {
                 borderRadius: '10px',
                 padding: '10px 14px',
                 gap: '10px',
+                cursor: 'pointer',
                 background: '#fff',
               }}
               
@@ -157,6 +183,7 @@ onFocus={(e) => {
                   outline: 'none',
                   fontSize: '14px',
                   color: '#1f2937',
+                  cursor: 'pointer',
                   background: 'transparent',
                   letterSpacing: '0.15em',
                 }}
@@ -167,7 +194,6 @@ onFocus={(e) => {
                   parent.style.backgroundOrigin = 'border-box';
                   parent.style.backgroundClip = 'padding-box, border-box';
                 }}
-                // عند الخروج نرجع كل شيء لأصله الطبيعي والناعم
                 onBlur={(e) => {
                   const parent = e.currentTarget.parentElement;
                   parent.style.borderColor = '#e5e7eb';
@@ -258,7 +284,6 @@ onFocus={(e) => {
               e.currentTarget.style.backgroundOrigin = 'border-box';
               e.currentTarget.style.backgroundClip = 'padding-box, border-box';
             }}
-            // عند إبعاد الماوس، يعود الزر لحالته الطبيعية الناعمة
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = '#e5e7eb';
               e.currentTarget.style.backgroundImage = 'none';
@@ -296,7 +321,6 @@ onFocus={(e) => {
               e.currentTarget.style.backgroundOrigin = 'border-box';
               e.currentTarget.style.backgroundClip = 'padding-box, border-box';
             }}
-            // عند إبعاد الماوس، يعود الزر لحالته الطبيعية الناعمة
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = '#e5e7eb';
               e.currentTarget.style.backgroundImage = 'none';
@@ -314,12 +338,12 @@ onFocus={(e) => {
         </div>
 
         {/* Request Access */}
-        <p style={{ marginTop: '28px', fontSize: '13px', color: '#9ca3af' }}>
-          New to the platform?{' '}
-          <a href="#" style={{ color: '#e11d74', fontWeight: 700, textDecoration: 'none' }}>
-            Request access
-          </a>
-        </p>
+<p style={{ marginTop: '28px', fontSize: '13px', color: '#9ca3af' }}>
+  New to the platform?{' '}
+  <Link to="/signup" style={{ color: '#e11d74', fontWeight: 700, textDecoration: 'none' }}>
+    Create an account
+  </Link>
+</p>
       </div>
 
       {/* Footer */}

@@ -39,68 +39,67 @@ export default function Pathways() {
       position: 'relative',
     }}>
 
-<div 
-  onClick={() => setIsBotOpen(!isBotOpen)}
-  style={{
-    position: 'fixed',
-    right: 'calc(max(24px, 50% - 560px) + 24px)', 
-    top: '70px', 
-    zIndex: 2000,
-    cursor: 'pointer',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-  }}
->
-  {/* زر الأيقونة الدائري الأنيق - تم إلغاء البوردر والتضخم الثابت عند الفتح */}
-  <div 
-    style={{
-      width: '48px', 
-      height: '48px', 
-      display: 'flex', 
-      alignItems: 'center', 
-      justifyContent: 'center',
-      // ظل ثابت وناعم في كل الحالات لمنع ظهور أي وهج أو بوردر أبيض عند الضغط
-      boxShadow: '0 4px 14px rgba(124, 58, 237, 0.25)', 
-      background: 'linear-gradient(135deg, #e11d74, #7c3aed)',
-      borderRadius: '50%',
-      transform: 'scale(1)', // الحالة الافتراضية ثابتة
-      transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-    }}
-    onMouseEnter={e => {
-      e.currentTarget.style.transform = 'scale(1.12)'; // يتضخم فقط عند تقريب الماوس
-      e.currentTarget.style.boxShadow = '0 6px 20px rgba(124, 58, 237, 0.35)';
-    }}
-    onMouseLeave={e => {
-      e.currentTarget.style.transform = 'scale(1)'; // يعود لحجمه الطبيعي فوراً عند ابتعاد الماوس
-      e.currentTarget.style.boxShadow = '0 4px 14px rgba(124, 58, 237, 0.25)';
-    }}
-  >
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="34" height="34">
-      <defs>
-        <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#512DA8" />
-          <stop offset="50%" stopColor="#7B1FA2" />
-          <stop offset="100%" stopColor="#C2185B" />
-        </linearGradient>
-      </defs>
-      <circle cx="50" cy="50" r="45" fill="url(#purpleGradient)" />
-      <path fill="#FFF" d="M38 42h24a4 4 0 014 4v18a4 4 0 01-4 4H38a4 4 0 01-4-4V46a4 4 0 014-4zm6 0l2-5h8l2 5zM30 50h4v10h-4zm36 0h4v10h-4z" />
-      <path fill="#6A1B9A" d="M43 48a3 3 0 100 6 3 3 0 000-6zm14 0a3 3 0 100 6 3 3 0 000-6zm-14 11h14v3a1 1 0 01-1 1H44a1 1 0 01-1-1z" />
-    </svg>
-  </div>
+      <div 
+        onClick={() => setIsBotOpen(!isBotOpen)}
+        style={{
+          position: 'fixed',
+          right: 'calc(max(24px, 50% - 560px) + 24px)', 
+          top: '70px', 
+          zIndex: 2000,
+          cursor: 'pointer',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        }}
+      >
+        {/* زر الأيقونة الدائري الأنيق - تم إلغاء البوردر والتضخم الثابت عند الفتح */}
+        <div 
+          style={{
+            width: '48px', 
+            height: '48px', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            boxShadow: '0 4px 14px rgba(124, 58, 237, 0.25)', 
+            background: 'linear-gradient(135deg, #e11d74, #7c3aed)',
+            borderRadius: '50%',
+            transform: 'scale(1)', 
+            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'scale(1.12)'; 
+            e.currentTarget.style.boxShadow = '0 6px 20px rgba(124, 58, 237, 0.35)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'scale(1)'; 
+            e.currentTarget.style.boxShadow = '0 4px 14px rgba(124, 58, 237, 0.25)';
+          }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="34" height="34">
+            <defs>
+              <linearGradient id="purpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#512DA8" />
+                <stop offset="50%" stopColor="#7B1FA2" />
+                <stop offset="100%" stopColor="#C2185B" />
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="45" fill="url(#purpleGradient)" />
+            <path fill="#FFF" d="M38 42h24a4 4 0 014 4v18a4 4 0 01-4 4H38a4 4 0 01-4-4V46a4 4 0 014-4zm6 0l2-5h8l2 5zM30 50h4v10h-4zm36 0h4v10h-4z" />
+            <path fill="#6A1B9A" d="M43 48a3 3 0 100 6 3 3 0 000-6zm14 0a3 3 0 100 6 3 3 0 000-6zm-14 11h14v3a1 1 0 01-1 1H44a1 1 0 01-1-1z" />
+          </svg>
+        </div>
 
-  {/* مؤشر صغير أسفل الأيقونة يوضح حالة الفتح والإغلاق */}
-  <div style={{
-    width: '6px',
-    height: '6px',
-    backgroundColor: isBotOpen ? '#e11d74' : '#7c3aed',
-    borderRadius: '50%',
-    marginTop: '5px',
-    transition: 'background-color 0.3s ease',
-  }} />
-</div>
+        {/* مؤشر صغير أسفل الأيقونة يوضح حالة الفتح والإغلاق */}
+        <div style={{
+          width: '6px',
+          height: '6px',
+          backgroundColor: isBotOpen ? '#e11d74' : '#7c3aed',
+          borderRadius: '50%',
+          marginTop: '5px',
+          transition: 'background-color 0.3s ease',
+        }} />
+      </div>
 
       <div>
         {/* ── Progress Header ── */}
@@ -252,9 +251,48 @@ export default function Pathways() {
           margin: '0 auto',
           padding: '0 24px',
           display: 'flex',
-          justifyContent: 'flex-end', 
+          justifyContent: 'space-between', // يوزع الزر الجديد على اليسار والأزرار الأخرى على اليمين بالكامل
           alignItems: 'center',
         }}>
+          
+
+          <button
+            onClick={() => console.log('Go to previous question')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'transparent',
+              border: 'none',
+              color: '#616060', // متناسق مع عينة التصميم المرفقة
+              fontSize: '15px',
+              fontWeight: 600,
+              cursor: 'pointer',
+              padding: '8px 0',
+              transition: 'transform 0.2s ease, opacity 0.2s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'translateX(-7px)';
+              e.currentTarget.style.backgroundImage = 'linear-gradient(90deg, #e11d75, #7c3aed)';
+  e.currentTarget.style.WebkitBackgroundClip = 'text';
+  e.currentTarget.style.backgroundClip = 'text';
+  e.currentTarget.style.WebkitTextFillColor = 'transparent';
+  e.currentTarget.style.color = 'transparent';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'translateX(0)';
+              e.currentTarget.style.opacity = '1';
+e.currentTarget.style.backgroundImage = 'none';
+  e.currentTarget.style.WebkitBackgroundClip = 'initial';
+  e.currentTarget.style.backgroundClip = 'initial';
+  e.currentTarget.style.WebkitTextFillColor = 'initial';
+  e.currentTarget.style.color = '#616060';
+            }}
+          >
+            <span style={{ fontSize: '16px', fontWeight: 'bold' }}>‹</span> Previous
+          </button>
+
+          {/* الحاوية اليمينية الخاصة بأزرار التقييم والمتابعة */}
           <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
             <button
               onClick={() => setFlagged(!flagged)}
@@ -316,6 +354,7 @@ export default function Pathways() {
               Continue <span style={{ fontSize: '14px' }}>›</span>
             </button>
           </div>
+
         </div>
       </div>
 

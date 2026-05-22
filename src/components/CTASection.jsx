@@ -104,13 +104,38 @@ export default function CTASection() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '32px', marginBottom: '12px' }}>
           {['PRECISION', 'URGENCY', 'INTELLIGENCE'].map(word => (
             <span key={word} style={{
-              fontSize: '11px', color: '#d1d5db',
+              fontSize: '11px', backgroundImage: 'linear-gradient(90deg, #e11d75ab, #7c3aedaf)',
+  WebkitBackgroundClip: 'text',
+  backgroundClip: 'text',
+  WebkitTextFillColor: 'transparent',
+  color: 'transparent',
               letterSpacing: '0.12em', fontWeight: 600,
-            }}>{word}</span>
+            }}
+                        onMouseEnter={e => {
+                        e.currentTarget.style.transform = 'scale(1.4)';
+                                      e.currentTarget.style.backgroundImage = 'linear-gradient(90deg, #e11d75ab, #7c3aedaf)';
+  e.currentTarget.style.WebkitBackgroundClip = 'text';
+  e.currentTarget.style.backgroundClip = 'text';
+  e.currentTarget.style.WebkitTextFillColor = 'transparent';
+  e.currentTarget.style.color = 'transparent';
+  e.currentTarget.style.transition = 'all 0.3s ease';
+  e.currentTarget.style.cursor='default';
+            }}
+            onMouseLeave={e => {
+e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.backgroundImage = 'linear-gradient(90deg, #e11d75ab, #7c3aedaf)';
+  e.currentTarget.style.WebkitBackgroundClip = 'text';
+  e.currentTarget.style.backgroundClip = 'text';
+  e.currentTarget.style.WebkitTextFillColor = 'transparent';
+  e.currentTarget.style.color = 'transparent';
+  e.currentTarget.style.transition = 'all 0.3s ease';
+            }}
+            
+            >{word}</span>
           ))}
         </div>
         <p style={{ fontSize: '12px', color: '#d1d5db' }}>
-          © 2024 SharafAI. Secure Emergency & Guidance Infrastructure.
+          © 2026 SharafAI. Secure Emergency & Guidance Infrastructure.
         </p>
       </footer>
     </>

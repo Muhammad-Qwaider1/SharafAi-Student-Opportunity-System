@@ -1,10 +1,13 @@
-import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Outlet, Navigate } from 'react-router-dom'
 import Login from './pages/Auth/Login'
 import Home from './pages/Home'
+import Welcome from './pages/Welcome'
 import Pathways from './pages/Pathways'
 import Navbar from './components/Navbar'
 import './App.css'
+import SignUp from './pages/Auth/Signup'
 
+// 🔐 الـ Layout العادي والآمن للتنقل الداخلي
 function Layout() {
   return (
     <>
@@ -18,13 +21,21 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* صفحات فيها Navbar */}
+        {/* 1. أول ما يفتح المشروع: تظهر الواجهة الترحيبية دائماً بشكل طبيعي */}
+        <Route path="/" element={<Welcome />} />
+
+        {/* 2. صفحات المشروع الداخلية بداخل الـ Layout (يظهر فيها الـ Navbar تلقائياً) */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Home />} />
           <Route path="/pathways" element={<Pathways />} />
+          
+          {/* 🛠️ الحل السحري هنا: لو ضغطت على اللوغو أو أي رابط يوجه لـ "/" بالخطأ وأنت داخل المشروع، الـ Layout سيجبره يتحول فوراً لـ /dashboard وبذلك مستحيل يقلعك لبرا طالما أنت بالداخل */}
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Route>
-        {/* صفحات بدون Navbar */}
+
+        {/* 3. صفحة الـ Auth (بدون Navbar) */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} /> {/* 👈 أضف هذا السطر هنا */}
       </Routes>
     </Router>
   )

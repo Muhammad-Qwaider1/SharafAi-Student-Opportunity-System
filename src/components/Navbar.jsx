@@ -43,7 +43,7 @@ export default function Navbar() {
 
 {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+          <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
           <img 
             src={sharafLogo} 
             alt="SharafAI Logo" 
@@ -59,10 +59,10 @@ export default function Navbar() {
         {/* Desktop Links */}
 <div style={{ display: 'flex', gap: '32px' }} className="desktop-nav">
   {[ 
-    { label: 'Dashboard', path: '/' },
+    { label: 'Dashboard', path: '/dashboard' },
     { label: 'Pathways', path: '/pathways' },
-    { label: 'Resources', path: '/' },
-    { label: 'Mentorship', path: '/' },
+    { label: 'Resources', path: '/resources' },
+    { label: 'Mentorship', path: '/mentorship' },
   ].map(item => (
     /* 🛠️ التعديل هنا: تحويل الـ <a> إلى <Link> واستخدام خاصية "to" */
     <Link 
@@ -133,34 +133,32 @@ export default function Navbar() {
       </div>
 
 {/* Mobile Menu */}
-{/* Mobile Menu */}
 {menuOpen && (
   <div style={{
     position: 'fixed',
-    top: '60px', // تعديل بسيط ليطابق الـ height تبع الـ navbar الأصلي (60px) كرمال ما يصير فراغ
-    left: 0,
+    top: '80px', // تعديل بسيط ليطابق الـ height تبع الـ navbar الأصلي (60px) كرمال ما يصير فراغ
+    left: 20,
     right: 0,
-    background: 'rgba(255, 255, 255, 0.95)',
+    background: 'rgba(255, 255, 255, 0)',
     backdropFilter: 'blur(16px)',
     WebkitBackdropFilter: 'blur(16px)',
-    borderBottom: '1px solid rgba(255,255,255,0.3)',
-    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.08)',
+    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.16)',
     padding: '32px 24px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '28px',
-    borderRadius: '0px 0px 20px 20px', // تدوير الحواف السفلية يعطي طابع متناسق أكثر مع واجهة الجوال
+    borderRadius: '100px 0px 0px 100px', // تدوير الحواف السفلية يعطي طابع متناسق أكثر مع واجهة الجوال
     zIndex: 1000,
     animation: 'fadeSlideDown 0.4s ease forwards', // تسريع الأنيميشن قليلاً كرمال استجابة الموبايل تكون طيارة
   }} className="mobile-menu">
     
     {/* 🛠️ قمنا بتغيير المصفوفة لتشمل الاسم والمسار (path) معاً مثل الـ Desktop */}
     {[
-      { label: 'Dashboard', path: '/' },
+      { label: 'Dashboard', path: '/dashboard' },
       { label: 'Pathways', path: '/pathways' },
-      { label: 'Resources', path: '/' },
-      { label: 'Mentorship', path: '/' },
+      { label: 'Resources', path: '/resources' },
+      { label: 'Mentorship', path: '/mentorship' },
     ].map(item => (
       /* 🛠️ تحويل الـ <a> إلى <Link> واستخدام خاصية to */
       <Link 

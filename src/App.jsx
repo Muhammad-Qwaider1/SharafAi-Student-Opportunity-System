@@ -6,6 +6,7 @@ import Pathways from './pages/Pathways'
 import Navbar from './components/Navbar'
 import './App.css'
 import SignUp from './pages/Auth/Signup'
+import Profile from './pages/Profile'
 
 // 🔐 الـ Layout العادي والآمن للتنقل الداخلي
 function Layout() {
@@ -28,6 +29,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/dashboard" element={<Home />} />
           <Route path="/pathways" element={<Pathways />} />
+          <Route path="/profile" element={<Profile />} />
           
           {/* 🛠️ الحل السحري هنا: لو ضغطت على اللوغو أو أي رابط يوجه لـ "/" بالخطأ وأنت داخل المشروع، الـ Layout سيجبره يتحول فوراً لـ /dashboard وبذلك مستحيل يقلعك لبرا طالما أنت بالداخل */}
           <Route path="/" element={<Navigate to="/dashboard" replace />} />

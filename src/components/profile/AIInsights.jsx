@@ -31,7 +31,10 @@ export default function AIInsights() {
   return (
     <div className="bg-white rounded-2xl shadow-sm p-5">
       <div className="flex items-center gap-2 mb-4">
-        <Sparkles className="w-4 h-4 text-[#8B1A4A]" />
+        <Sparkles 
+  className="w-4 h-4"
+  style={{ color: '#7c3aed'}} 
+/>
         <h3 className="font-semibold text-gray-900 text-sm">AI Insights</h3>
       </div>
       {insights.map((i) => (

@@ -53,8 +53,7 @@ export default function Welcome() {
           }}
         />
       </div>
-
-      {/* ثانياً: النص الترحيبي الرئيسي مع حجم خط متجاوب */}
+      
       <h1 style={{
         fontSize: titleFontSize,
         fontWeight: 700,
@@ -71,18 +70,37 @@ export default function Welcome() {
         }}>SharafAI</span>
       </h1>
 
-      {/* ثالثاً: الوصف الفرعي */}
-      <p style={{
-        fontSize: subtitleFontSize,
-        color: '#64748b',
-        maxWidth: '540px',
-        lineHeight: '1.6',
-        marginBottom: isMobile ? '30px' : '36px',
-        fontWeight: 500,
-        padding: isMobile ? '0 8px' : '0',
-      }}>
-        Your intelligent learning companion. Start your cognitive evaluation and discover personalized pathways.
-      </p>
+<p
+  style={{
+    fontSize: subtitleFontSize,
+    maxWidth: '540px',
+    lineHeight: '1.6',
+    marginBottom: isMobile ? '30px' : '36px',
+    fontWeight: 500,
+    padding: isMobile ? '0 8px' : '0',
+    
+
+    background: "linear-gradient(90deg, #e11d74, #7c3aed, #fdfdfd)",
+    backgroundSize: "200% auto",
+    WebkitBackgroundClip: "text",
+    backgroundClip: "text",
+    color: "transparent",
+    animation: "shine 4s linear infinite",
+  }}
+>
+  Your intelligent learning companion,
+  Start your cognitive evaluation and discover personalized pathways.
+</p>
+
+<style>
+{`
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+`}
+</style>
 
       {/* رابعاً: زر الانتقال مع الحفاظ على التعديلات اللمسية والـ Hover الخاصة بك */}
       <button 
@@ -101,22 +119,27 @@ export default function Welcome() {
           width: isMobile ? '100%' : 'auto', // يصبح الزر عريضاً على الهواتف لسهولة الضغط
           maxWidth: '280px',
         }}
-        onMouseEnter={e => {
-          e.currentTarget.style.transform = 'translateY(-2px)'
-          e.currentTarget.style.boxShadow = '0 15px 30px 5px #7c3aeda1'
-          e.currentTarget.style.background = '#fff5f8'
-          e.currentTarget.style.color = '#e11d74'
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(225, 29, 116, 0.4)'
-          e.currentTarget.style.color = '#fff'
-          e.currentTarget.style.background = 'linear-gradient(90deg, #e11d74, #7c3aed)'
-        }}
+onMouseEnter={e => {
+  e.currentTarget.style.transform = 'translateY(-3px)';
+  e.currentTarget.style.background = '#fff5f8';
+  e.currentTarget.style.backgroundImage = 'linear-gradient(90deg, #e11d74, #7c3aed)';
+  e.currentTarget.style.backgroundClip = 'text';
+  e.currentTarget.style.webkitBackgroundClip = 'text';
+  e.currentTarget.style.webkitTextFillColor = 'transparent';
+}}
+onMouseLeave={e => {
+  e.currentTarget.style.transform = 'translateY(0)';
+  e.currentTarget.style.webkitTextFillColor = '#fff';
+  e.currentTarget.style.background = 'linear-gradient(90deg, #e11d74, #7c3aed)';
+}}
+
       >
         Start Assessment →
       </button>
 
     </div>
+
+    
   )
+  
 }

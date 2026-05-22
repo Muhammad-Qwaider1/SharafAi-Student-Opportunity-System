@@ -16,8 +16,8 @@ export default function ActivePathway() {
           <ExternalLink className="w-4 h-4" />
         </button>
       </div>
-      <h4 className="text-base font-bold text-gray-900 mb-1">LLM Optimization</h4>
-      <p className="text-xs text-gray-500 flex-1 leading-relaxed">
+      <h4 className="text-base font-bold text-gray-900 mb-1 text-left">LLM Optimization</h4>
+      <p className="text-xs text-gray-500 flex-1 leading-relaxed text-left">
         Applying advanced neural pruning techniques to edge devices.
       </p>
       <div className="flex items-center mt-4 gap-1">

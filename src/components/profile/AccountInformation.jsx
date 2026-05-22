@@ -2,16 +2,16 @@ import { UserCircle, ChevronRight } from "lucide-react";
 
 const rows = [
   { label: "Student ID", value: "SH-2024-9981-AX", highlight: false, action: false },
-  { label: "Institutional Email", value: "a.rivera@sharaf.ai", highlight: true, action: true },
+  { label: "Institutional Email", value: "a.rivera@sharaf.ai", highlight: false, action: false },
   { label: "Current Semester", value: "Senior Phase – Q3", highlight: false, action: false },
   { label: "Primary Mentor", value: "Dr. Sarah Chen", highlight: false, action: false, icon: true },
 ];
 
 export default function AccountInformation() {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-5">
-      <h3 className="font-semibold text-gray-900 mb-2">Account Information</h3>
-      <div className="divide-y divide-gray-50">
+    <div className="bg-white rounded-2xl shadow-sm p-6">
+      <h3 className="font-semibold text-gray-900 mb-2 text-left">Account Information</h3>
+      <div className="divide-y divide-gray-30">
         {rows.map((row) => (
           <div key={row.label} className="flex items-center justify-between py-4">
             <span className={`text-sm ${row.highlight ? "text-[#8B1A4A] font-medium" : "text-gray-500"}`}>

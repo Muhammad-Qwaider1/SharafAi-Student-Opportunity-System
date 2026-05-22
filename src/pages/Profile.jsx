@@ -48,28 +48,34 @@ function AvatarCard({ avatarUrl }) {
       <div className="relative mb-4">
         <img
           src={avatarUrl}
-          alt="Alex Rivera"
+          alt="Muhammad Qwaider"
           className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md"
         />
-        <span className="absolute bottom-1 right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center border-2 border-white cursor-pointer shadow-sm hover:bg-red-600 transition-colors">
-          <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4z" />
-          </svg>
-        </span>
+<span className="absolute bottom-1 right-1 w-6 h-6 rounded-full flex items-center justify-center border-2 border-white cursor-pointer shadow-sm transition-colors" style={{ backgroundColor: '#7c3aed' }}>
+  <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none">
+    <path d="M12 2L14.05 4.31L17.11 4.14L18.1 7.02L20.89 8.24L20.5 11.27L22 13.92L19.86 16.08L19.46 19.11L16.4 19.89L14.7 22.44L12 21.2L9.3 22.44L7.6 19.89L4.54 19.11L4.14 16.08L2 13.92L3.5 11.27L3.11 8.24L5.9 7.02L6.89 4.14L9.95 4.31L12 2Z" fill="white" />
+    <path d="M9 12.5L11 14.5L15.5 10" stroke="#7c3aed" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+</span>
       </div>
-      <h2 className="text-xl font-bold text-gray-900">Alex Rivera</h2>
+      <h2 className="text-xl font-bold text-gray-900">Muhammad Qwaider</h2>
       <p className="text-sm text-gray-500 mt-1">Advanced AI Ethics Pathway</p>
 
-      <div className="flex gap-12 mt-6 pt-5 border-t border-gray-100 w-full justify-center">
-        <div className="text-center">
-          <p className="text-2xl font-black text-red-500">4.8</p>
-          <p className="text-[10px] text-gray-400 uppercase tracking-wider font-bold mt-1">GPA Score</p>
-        </div>
-        <div className="text-center">
-          <p className="text-2xl font-black text-purple-600">82%</p>
-          <p className="text-[10px] text-gray-400 uppercase tracking-wider font-bold mt-1">Progress</p>
-        </div>
-      </div>
+<div className="flex gap-12 mt-6 pt-5 border-t border-gray-100 w-full justify-center">
+  <div className="text-center">
+    <p 
+  className="text-2xl font-black" 
+  style={{ color: '#e11d74' }}
+>
+  4.8
+</p>
+    <p className="text-[10px] text-gray-400 uppercase tracking-wider font-bold mt-1" style={{ color: '#e11d74' }}>GPA Score</p>
+  </div>
+  <div className="text-center">
+    <p className="text-2xl font-black" style={{ color: '#7c3aed' }}>82%</p>
+    <p className="text-[10px] text-gray-400 uppercase tracking-wider font-bold mt-1" style={{ color: '#7c3aed' }}>Progress</p>
+  </div>
+</div>
     </div>
   );
 }

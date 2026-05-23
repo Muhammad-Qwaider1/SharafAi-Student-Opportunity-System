@@ -23,7 +23,7 @@ export default function Login() {
       localStorage.setItem('userToken', 'mock-jwt-token-12345')
       
       // التوجيه الفوري إلى قلب المشروع (الـ Dashboard) 🚀
-      navigate('/dashboard')
+      navigate('/home', { replace: true })
     } else {
       // إظهار رسالة خطأ واضحة في حال إدخال بيانات أخرى
       setError('البريد الإلكتروني أو كلمة المرور غير صحيحة! استخدم حساب المطور التجريبي.')

@@ -23,7 +23,7 @@ export default function SignUp() {
     // هنا يتم حفظ البيانات أو إرسالها للباك إند لاحقاً
     // تجريبياً: سنقوم بحفظ توكن وتوجيهه للداخل فوراً
     localStorage.setItem('userToken', 'mock-jwt-token-12345')
-    navigate('/dashboard')
+    navigate('/home', { replace: true })
   }
 
   // ميثود مخصصة لتأثير التركيز (Focus) على الحقول مثل كود الـ Login الخاص بك

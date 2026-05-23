@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import sharafLogo from  '../assets/sharafai-logo.jpg'
 import { useNavigate } from 'react-router-dom'
-
+import { Link, useLocation } from 'react-router-dom'
 
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +43,7 @@ export default function Navbar() {
 
 {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Link to="/dashboard" style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+          <Link to="/home" style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
           <img 
             src={sharafLogo} 
             alt="SharafAI Logo" 
@@ -64,7 +64,6 @@ export default function Navbar() {
     { label: 'Resources', path: '/resources' },
     { label: 'Mentorship', path: '/mentorship' },
   ].map(item => (
-    /* 🛠️ التعديل هنا: تحويل الـ <a> إلى <Link> واستخدام خاصية "to" */
     <Link 
       key={item.label} 
       to={item.path} 
@@ -73,7 +72,7 @@ export default function Navbar() {
         textDecoration: 'none', fontWeight: 600,
         cursor: 'pointer',
         display: 'inline-block',
-        transition: 'all 0.2s ease', // إضافة نعومة للحركة عند الـ Hover
+        transition: 'all 0.2s ease',
       }}
       onMouseEnter={e => {
         e.target.style.background = 'linear-gradient(135deg, #e11d74, #7c3aed)';
@@ -94,7 +93,6 @@ export default function Navbar() {
   ))}
 </div>
 
-        {/* Icons */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
           {/* Bell */}
 <svg width="22" height="22" fill="none" stroke="#6b7280" strokeWidth="2" viewBox="0 0 24 24" 
@@ -105,7 +103,6 @@ export default function Navbar() {
   <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
 </svg>
           {/* User */}
-{/* User Icon Linked to Profile */}
 <Link to="/profile" style={{ display: 'flex', alignItems: 'center' }}>
   <svg 
     width="22" 
@@ -145,7 +142,7 @@ export default function Navbar() {
 {menuOpen && (
   <div style={{
     position: 'fixed',
-    top: '80px', // تعديل بسيط ليطابق الـ height تبع الـ navbar الأصلي (60px) كرمال ما يصير فراغ
+    top: '80px',
     left: 20,
     right: 0,
     background: 'rgba(255, 255, 255, 0)',
@@ -157,9 +154,9 @@ export default function Navbar() {
     flexDirection: 'column',
     alignItems: 'center',
     gap: '28px',
-    borderRadius: '100px 0px 0px 100px', // تدوير الحواف السفلية يعطي طابع متناسق أكثر مع واجهة الجوال
+    borderRadius: '100px 0px 0px 100px',
     zIndex: 1000,
-    animation: 'fadeSlideDown 0.4s ease forwards', // تسريع الأنيميشن قليلاً كرمال استجابة الموبايل تكون طيارة
+    animation: 'fadeSlideDown 0.4s ease forwards',
   }} className="mobile-menu">
     
     {/* 🛠️ قمنا بتغيير المصفوفة لتشمل الاسم والمسار (path) معاً مثل الـ Desktop */}
@@ -169,11 +166,9 @@ export default function Navbar() {
       { label: 'Resources', path: '/resources' },
       { label: 'Mentorship', path: '/mentorship' },
     ].map(item => (
-      /* 🛠️ تحويل الـ <a> إلى <Link> واستخدام خاصية to */
       <Link 
         key={item.label} 
         to={item.path} 
-        // 🛠️ الخدعة هنا: بمجرد ما يضغط المستخدم على الرابط، نغلق المنيو تلقائياً لتظهر الصفحة الجديدة خلفها
         onClick={() => setMenuOpen(false)}
         style={{
           fontSize: '15.5px',

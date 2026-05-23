@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import './App.css'
 import SignUp from './pages/Auth/Signup'
 import Profile from './pages/Profile'
+import Dashboard from "./pages/Dashboard";
 
 // 🔐 الـ Layout العادي والآمن للتنقل الداخلي
 function Layout() {
@@ -22,22 +23,22 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* 1. أول ما يفتح المشروع: تظهر الواجهة الترحيبية دائماً بشكل طبيعي */}
         <Route path="/" element={<Welcome />} />
-
-        {/* 2. صفحات المشروع الداخلية بداخل الـ Layout (يظهر فيها الـ Navbar تلقائياً) */}
+        
+        {/* المسارات المحمية أو التي تتطلب Navbar */}
         <Route element={<Layout />}>
-          <Route path="/dashboard" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/pathways" element={<Pathways />} />
           <Route path="/profile" element={<Profile />} />
-          
-          {/* 🛠️ الحل السحري هنا: لو ضغطت على اللوغو أو أي رابط يوجه لـ "/" بالخطأ وأنت داخل المشروع، الـ Layout سيجبره يتحول فوراً لـ /dashboard وبذلك مستحيل يقلعك لبرا طالما أنت بالداخل */}
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
         </Route>
 
-        {/* 3. صفحة الـ Auth (بدون Navbar) */}
+        {/* مسارات المصادقة */}
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} /> {/* 👈 أضف هذا السطر هنا */}
+        <Route path="/signup" element={<SignUp />} />
+        
+        {/* إعادة توجيه لأي مسار غير معروف */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   )

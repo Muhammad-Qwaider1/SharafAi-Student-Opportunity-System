@@ -15,12 +15,24 @@ export default function HeroSection() {
 }}>
   Join the{' '}
   <span style={{ 
-    background: 'linear-gradient(135deg, #e11d74, #7c3aed)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent'
+    background: "linear-gradient(90deg, #e11d74, #7c3aed, #ffffff)",
+    backgroundSize: "200% auto",
+    WebkitBackgroundClip: "text",
+    backgroundClip: "text",
+    color: "transparent",
+    animation: "shine 3s linear infinite",
   }}>
     Future
   </span>
+  <style>
+{`
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+`}
+</style>
 </h1>
       <p style={{
         fontSize: 'clamp(14px, 2vw, 16px)',

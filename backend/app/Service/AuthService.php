@@ -14,16 +14,19 @@ class AuthService
     public function register(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'name'     => $data['name'],
+            'email'    => $data['email'],
+            'phone'    => $data['phone'] ?? null,
             'password' => Hash::make($data['password']),
-            'track' => $data['track']
+            'type'     => 'student',
+            'track'    => $data['track'] ?? null,
         ]);
     }
 
     public function login($identifier, $password)
     {
         $user = User::where('email', $identifier)
+            ->orWhere('phone', $identifier)
             ->first();
 
         if (!$user || !Hash::check($password, $user->password)) {

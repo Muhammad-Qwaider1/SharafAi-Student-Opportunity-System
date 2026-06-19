@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->foreignId('question_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->text('label');
-            $table->text('labelAr');
+            $table->text('option_text');
+            $table->text('option_text_ar')->nullable();
             $table->integer('score_value');
             $table->string('tag');
             $table->timestamps();

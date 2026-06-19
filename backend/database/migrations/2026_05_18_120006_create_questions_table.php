@@ -15,9 +15,9 @@ return new class extends Migration {
             $table->foreignId('assessment_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->text('text');
-            $table->text('textAr');
-            $table->enum('track', ["Literary", "Scientific"])->nullable();
+            $table->text('question_text');
+            $table->text('question_text_ar')->nullable();
+            $table->string('category')->nullable();
             $table->integer('weight')->default(1);
             $table->timestamps();
         });

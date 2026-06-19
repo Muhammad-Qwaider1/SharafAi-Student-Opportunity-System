@@ -23,30 +23,36 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'track' => 'in:Scientific,Literary',
-            'password' => 'required|min:8',
-        ]);
+       $validated = $request->validate([
+    'name'     => 'required|string',
+    'email'    => 'required|email|unique:users',
+    'phone'    => 'nullable|unique:users',
+    'password' => 'required|min:8|confirmed',
+    'track'    => 'nullable|in:Scientific,Literary',
+]);
 
         $user = $this->authService->register($validated);
 
         $token = $this->authService->createToken($user);
-        $return['user'] = $user;
-        $return['token'] = $token;
-        return response()->json($return);
-    }
+
+return ApiResponse::success([
+    'user' => [
+        'name'  => $user->name,
+        'email' => $user->email,
+        'track' => $user->track,
+    ],
+    'token' => $token
+], 'Registration successful');    }
 
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required',
+            'identifier' => 'required',
             'password' => 'required'
         ]);
 
         $user = $this->authService->login(
-            $request->email,
+            $request->identifier,
             $request->password
         );
 
@@ -55,9 +61,15 @@ class AuthController extends Controller
         }
 
         $token = $this->authService->createToken($user);
-            $return['user'] = $user;
-            $return['token'] = $token;
-        return response()->json($return);
+
+     return ApiResponse::success([
+    'user' => [
+        'name'  => $user->name,
+        'email' => $user->email,
+        'track' => $user->track,
+    ],
+    'token' => $token
+], 'Login successful');
     }
 
     public function logout(Request $request)
@@ -100,7 +112,7 @@ class AuthController extends Controller
             return ApiResponse::error('Please wait before requesting another OTP', 429);
         }
 
-        RateLimiter::hit($key, 90);
+        RateLimiter::hit($key, 90); 
 
         $this->authService->sendOtp($user);
 
@@ -191,16 +203,37 @@ class AuthController extends Controller
     {
         $user = $request->user();
 
-        return response()->json($user);
+        return response()->json([
+            'success' => true,
+            'message' => 'profile fetched',
+        'data' => [
+        'name'  => $user->name,
+        'email' => $user->email,
+        'phone' => $user->phone,
+        'track' => $user->track,
+        ]
+        ]);
     }
 
     public function updateProfile(Request $request)
     {
         $user = $request->user();
-        $updatedProfile = $request->only(['name', 'track']);
-        $updatedProfile['password'] = Hash::make($request['password']);
-        $user->update($updatedProfile);
+if ($request->filled('password')) {
+    $request->validate(['password' => 'min:8']);
+    $user->password = Hash::make($request->password);
+}
 
-        return response()->json($user);
+$user->update($request->only(['name', 'phone', 'track']));
+
+if ($request->filled('password')) {
+    $user->save();
+}
+
+        return response()->json([
+            'success' => true,
+            'message' => 'profile updated',
+            'data' => $user
+        ]);
     }
+
 }

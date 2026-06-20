@@ -1,9 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { RequireAuth } from "@/components/RequireAuth";
 import { useApp } from "@/lib/store";
-import { QUESTIONS, scoreAnswers, type Stream } from "@/lib/questions";
+import { QUESTIONS, scoreAnswers, type Question, type Stream } from "@/lib/questions";
+import * as api from "@/lib/api";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 
 export const Route = createFileRoute("/assessment")({
@@ -11,14 +12,28 @@ export const Route = createFileRoute("/assessment")({
 });
 
 function Assessment() {
-  const { addResult } = useApp();
+  const { addResult, submitAssessment } = useApp();
   const nav = useNavigate();
+  const [questions, setQuestions] = useState<Question[]>(QUESTIONS);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [transitionKey, setTransitionKey] = useState(0);
+  const [submitting, setSubmitting] = useState(false);
 
-  const q = QUESTIONS[step];
-  const total = QUESTIONS.length;
+  useEffect(() => {
+    api.getQuestions()
+      .then(res => {
+        if (Array.isArray(res) && res.length > 0 && res.every(q => q.id && q.text && Array.isArray(q.options))) {
+          setQuestions(res as unknown as Question[]);
+        }
+      })
+      .catch(() => {
+        // backend unreachable/failed — keep the local question bank already in state
+      });
+  }, []);
+
+  const q = questions[step];
+  const total = questions.length;
   const progress = Math.round((step / total) * 100);
   const isLast = step === total - 1;
   const selected = answers[q.id];
@@ -30,15 +45,22 @@ function Assessment() {
     setTransitionKey(k => k + 1);
   };
 
-  const finish = () => {
-    const scores = scoreAnswers(answers);
-    const topStream = (Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0]) as Stream;
-    addResult({
-      id: crypto.randomUUID(),
-      date: new Date().toISOString(),
-      scores,
-      topStream,
-    });
+  const finish = async () => {
+    setSubmitting(true);
+    const result = await submitAssessment(answers);
+    if (!result) {
+      // Backend unreachable/failed — fall back to local scoring so the
+      // user still gets a result instead of being stuck.
+      const scores = scoreAnswers(answers);
+      const topStream = (Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0]) as Stream;
+      addResult({
+        id: crypto.randomUUID(),
+        date: new Date().toISOString(),
+        scores,
+        topStream,
+      });
+    }
+    setSubmitting(false);
     nav({ to: "/results" });
   };
 
@@ -111,10 +133,10 @@ function Assessment() {
           ) : (
             <button
               onClick={finish}
-              disabled={!selected}
+              disabled={!selected || submitting}
               className="inline-flex items-center gap-2 gradient-bg text-white font-semibold px-6 py-2.5 rounded-full shadow-lg shadow-pink-500/40 disabled:opacity-40 disabled:cursor-not-allowed hover:scale-105 transition-transform animate-pulseGlow"
             >
-              See Results <ArrowRight className="w-4 h-4" />
+              {submitting ? "Scoring…" : "See Results"} <ArrowRight className="w-4 h-4" />
             </button>
           )}
         </div>

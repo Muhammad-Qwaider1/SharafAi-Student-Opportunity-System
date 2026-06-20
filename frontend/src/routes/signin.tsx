@@ -18,7 +18,7 @@ function SignIn() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [authError, setAuthError] = useState("");
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError("");
     const r = schema.safeParse(form);
@@ -29,7 +29,8 @@ function SignIn() {
       return;
     }
     setErrors({});
-    if (signIn(form.email, form.password)) nav({ to: "/dashboard" });
+    const ok = await signIn(form.email, form.password);
+    if (ok) nav({ to: "/dashboard" });
     else setAuthError("Invalid email or password. Try signing up first.");
   };
 
@@ -53,6 +54,11 @@ function SignIn() {
               onChange={v => setForm({ ...form, email: v })} error={errors.email} placeholder="you@example.com" />
             <Field icon={Lock} label="Password" type="password" value={form.password}
               onChange={v => setForm({ ...form, password: v })} error={errors.password} placeholder="••••••••" />
+            <div className="text-right -mt-2">
+              <Link to="/forgot-password" className="text-xs font-semibold text-[#7c3aed] hover:underline">
+                Forgot password?
+              </Link>
+            </div>
 
             {authError && <div className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{authError}</div>}
 

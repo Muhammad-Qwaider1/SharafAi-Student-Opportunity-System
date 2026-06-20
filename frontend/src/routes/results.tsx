@@ -30,9 +30,10 @@ function Results() {
   const data = (Object.keys(STREAM_LABELS) as Stream[]).map(k => ({
     stream: STREAM_LABELS[k].replace(" & ", " &\n"),
     key: k,
-    score: last.scores[k],
+    score: last.scores[k] ?? 0,
   }));
   const sorted = [...data].sort((a, b) => b.score - a.score);
+  const faculties = last.recommendedFaculties ?? FACULTY_MAP[last.topStream];
 
   const handleDownload = () => {
     const text = [
@@ -43,7 +44,7 @@ function Results() {
       ...sorted.map(s => `${STREAM_LABELS[s.key as Stream]}: ${s.score}% match`),
       ``,
       `Recommended faculties:`,
-      ...FACULTY_MAP[last.topStream].map(f => `- ${f}`),
+      ...faculties.map(f => `- ${f}`),
     ].join("\n");
     const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
@@ -150,7 +151,7 @@ function Results() {
           <h3 className="text-xl font-bold">Recommended Faculties</h3>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {FACULTY_MAP[last.topStream].map(f => (
+          {faculties.map(f => (
             <div key={f} className="glass rounded-2xl p-4 hover:scale-[1.03] transition-transform">
               <div className="text-xs text-muted-foreground mb-1">Faculty of</div>
               <div className="font-semibold">{f}</div>

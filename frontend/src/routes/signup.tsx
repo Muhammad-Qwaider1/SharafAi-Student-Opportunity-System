@@ -15,13 +15,14 @@ const schema = z.object({
 });
 
 function SignUp() {
-  const { signUp } = useApp();
+  const { signUp, authError, setAuthError } = useApp();
   const nav = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", password: "", track: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError("");
     const r = schema.safeParse(form);
     if (!r.success) {
       const errs: Record<string, string> = {};
@@ -30,13 +31,13 @@ function SignUp() {
       return;
     }
     setErrors({});
-    signUp({
+    const ok = await signUp({
       name: form.name.trim(),
       email: form.email.trim(),
       password: form.password,
       track: form.track as "Scientific" | "Literary",
     });
-    nav({ to: "/dashboard" });
+    if (ok) nav({ to: "/dashboard" });
   };
 
   return (
@@ -67,6 +68,8 @@ function SignUp() {
                 { value: "Scientific", label: "العلمي — Scientific" },
                 { value: "Literary", label: "الأدبي — Literary" },
               ]} />
+
+            {authError && <div className="text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{authError}</div>}
 
             <button type="submit" className="w-full gradient-bg text-white font-semibold py-3 rounded-xl hover:scale-[1.02] transition-transform animate-pulseGlow">
               Create Account

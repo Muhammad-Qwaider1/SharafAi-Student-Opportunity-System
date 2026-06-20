@@ -19,7 +19,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-30 glass border-b border-white/40 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <Link to="/dashboard" className="flex items-center gap-2 group">
-             <Logo className="h-10 transition-transform group-hover:scale-105" />
+             <Logo className="h-10 transition-transform group-hover:scale-105" asLink={false} />
           </Link>
 
 

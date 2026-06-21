@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import { useApp } from "@/lib/store";
-import { Mail, Lock, ArrowLeft, LogIn } from "lucide-react";
+import { Mail, Lock, ArrowLeft, LogIn, Eye, EyeOff } from "lucide-react"; // تم إضافة Eye و EyeOff هنا
 
 export const Route = createFileRoute("/signin")({ component: SignIn });
 
@@ -83,6 +83,12 @@ export function Field({
   onChange: (v: string) => void; error?: string; placeholder?: string;
   options?: { value: string; label: string }[];
 }) {
+  // حالة مخصصة للتحكم بظهور كلمة المرور وإخفائها
+  const [showPassword, setShowPassword] = useState(false);
+
+  // تغيير نوع الحقل ديناميكياً بناءً على حالة العين
+  const inputType = type === "password" && showPassword ? "text" : type;
+
   return (
     <div>
       <label className="block text-xs font-semibold text-foreground/80 mb-1.5">{label}</label>
@@ -104,10 +110,22 @@ export function Field({
           </select>
         ) : (
           <input
-            type={type} value={value} placeholder={placeholder}
+            type={inputType} value={value} placeholder={placeholder}
             onChange={e => onChange(e.target.value)}
-            className={`w-full bg-transparent py-3 ${Icon ? "pl-10" : "pl-4"} pr-4 text-sm outline-none placeholder:text-muted-foreground/60 text-foreground`}
+            // تم تعديل الـ pr (Padding Right) إلى pr-10 لكي لا يتداخل النص مع زر العين
+            className={`w-full bg-transparent py-3 ${Icon ? "pl-10" : "pl-4"} ${type === "password" ? "pr-10" : "pr-4"} text-sm outline-none placeholder:text-muted-foreground/60 text-foreground`}
           />
+        )}
+
+        {/* زر العين يظهر فقط إذا كان نوع الحقل الأساسي password */}
+        {type === "password" && (
+          <button
+            type="button" // ضروري جداً لكي لا يقوم بعمل Submit للفورم عند الضغط عليه
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3.5 text-muted-foreground/70 hover:text-[#7c3aed] transition-colors duration-150"
+          >
+            {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          </button>
         )}
       </div>
       {error && <p className="text-xs text-red-500 mt-1">{error}</p>}

@@ -15,8 +15,8 @@ return new class extends Migration {
             $table->string('title');
             $table->string('titleAr');
             $table->text('description')->nullable();
-            $table->enum('status', ['active', 'inactive'])
-                ->default('active');
+            $table->enum('track', ['Scientific', 'Literary'])
+                ->default('Scientific');
             $table->timestamps();
         });
     }
